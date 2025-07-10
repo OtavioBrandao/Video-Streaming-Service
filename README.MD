@@ -1,0 +1,1 @@
+Para rodar o programa, basta executar o código main.py usando o comando python main.py.
