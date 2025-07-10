@@ -60,8 +60,8 @@ class User:
             return False
         
     # Ver a possibilidade de ver forma de pagamento e tal com o gerenciamento de plano
-    def gerenciar_plano(self, plano):
-        self.plano = plano
+    def gerenciar_plano(self):
+        plano = self.plano
         if plano == "Gratuito":
             print("Seu plano atual é o Gratuito. Deseja mudar para um plano pago?")
             print("1. Mudar para Básico")

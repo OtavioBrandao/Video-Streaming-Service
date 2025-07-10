@@ -48,7 +48,7 @@ def criar_conta():
             return criar_conta()
     # Verifica se as senhas coincidem
     if senha == senha2:
-        novo_usuario = User(nome, email, senha)
+        novo_usuario = User(nome, email, senha) # Instancia de um novo usuário que será adicionado à lista
         usuarios_registrados.append(novo_usuario)
         print("Sua conta foi criada com sucesso!")
     else:
@@ -64,8 +64,23 @@ def fazer_login(usuarios_registrados):
             print(f"Login bem-sucedido! Bem-vindo, {usuario.nome}.")
             return usuario
 
-    print("Usuário ou senha incorretos. Tente novamente.")
-    return fazer_login(usuarios_registrados)
+    print("Usuário ou senha incorretos.")
+    print("1. Tentar novamente")
+    print("2. Voltar ao menu inicial")
+    opcao = input("Escolha uma opção (1-2):\n ")
+    if opcao == "1":
+        limpar_tela()
+        return fazer_login(usuarios_registrados)
+    elif opcao == "2":
+        limpar_tela()
+        menu_inicial()
+    else:
+        print("Opção inválida. Tente novamente.")
+        time.sleep(2)
+        limpar_tela()
+        return fazer_login(usuarios_registrados)
+
+  
 
 
 def menu_inicial():
@@ -102,12 +117,12 @@ def menu_inicial():
 def menu_config_usuario(usuario):
     while True:
         print("Configurações de usuário:\n")
-        print("===========================")
-        print("1. Gerenciar meus perfis")
-        print("2. Gerenciar meu plano de assinatura")
-        print("3. Configurações de controle parental")
+        print("==========================================")
+        print("1. Gerenciar meus perfis\n")
+        print("2. Gerenciar meu plano de assinatura\n")
+        print("3. Configurações de controle parental\n")
         print("4. Voltar ao menu principal")
-        print("===========================")
+        print("==========================================")
 
         opcao_usuario = input("Escolha uma opção (1-4):\n ")
         if opcao_usuario == "1":       
@@ -138,7 +153,7 @@ def menu_config_usuario(usuario):
             else: 
                 menu_config_usuario(usuario)
         elif opcao_usuario == "2":
-            print("Não implementado\n")
+            usuario.gerenciar_plano()
             time.sleep(2)
             limpar_tela()
         elif opcao_usuario == "3":
