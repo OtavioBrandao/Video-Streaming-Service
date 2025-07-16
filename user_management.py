@@ -22,7 +22,7 @@ class User:
             return
         novo_perfil = Perfil(nome, controle_parental)
         self.perfis.append(novo_perfil)
-        print(f"Perfil '{nome}' adicionado com sucesso!")
+        print(f"Perfil '{nome}' adicionado com sucesso!\n")
     
     def remover_perfil(self, nome):
         for perfil in self.perfis:
@@ -33,11 +33,20 @@ class User:
                 print(f"Perfil '{nome}' não encontrado.")
         return
     
+    def ativar_controle_parental(self, nome_perfil):
+        for perfil in self.perfis:
+            if perfil.nome_perfil == nome_perfil:
+                perfil.controle_parental = True
+                break
+        else:
+            print(f"Perfil '{nome_perfil}' não encontrado.")
+    
     def listar_perfis(self):
         if not self.perfis:
             print("Nenhum perfil encontrado. Deseja adicionar um perfil?")
             print("1. Sim")
             print("2. Não")
+
             escolha = input()
             
             if escolha == "1":
@@ -48,9 +57,9 @@ class User:
                 print("Nenhum perfil adicionado.")
                 return False
             
-        print("Perfis disponíveis:")
+        print("Perfis disponíveis:\n")
         for perfil in self.perfis:
-            print(perfil)
+            print(perfil, "\n")
         return True
 
     def login(self, nome, senha):

@@ -2,6 +2,7 @@ import os
 import sys
 import time
 from user_management import User
+from parental_control import activate_parental_control
 
 # Video Streaming Service - Main Module
 
@@ -80,9 +81,6 @@ def fazer_login(usuarios_registrados):
         limpar_tela()
         return fazer_login(usuarios_registrados)
 
-  
-
-
 def menu_inicial():
     print("Bem-vindo ao Video Streaming Service!\n")
     print("Deseja criar uma conta ou fazer login?\n")
@@ -157,9 +155,38 @@ def menu_config_usuario(usuario):
             time.sleep(2)
             limpar_tela()
         elif opcao_usuario == "3":
-            print("Não implementado\n")
-            time.sleep(2)
             limpar_tela()
+            print("Configurações de Controle Parental:\n")
+            print("==========================================")
+            print("Você pode ativar o controle parental para um perfil existente ou restringir conteúdo.")
+            print("1. Ativar controle parental")
+            print("2. Restrição de conteúdo")
+            print("3. Voltar ao menu de configurações")
+            print("==========================================")
+            escolha = input("Escolha uma opção (1-3):\n ")
+            if escolha == "1":
+                limpar_tela()
+                print("Selecione o perfil que deseja ativar o controle parental:")
+                activate_parental_control(usuario)
+                time.sleep(2)
+                print("Deseja ativar o controle parental para outro perfil?" \
+                "\n1. Sim\n2. Não")
+                escolha_controle = input("Escolha uma opção (1-2):\n ")
+                if escolha_controle == "1":
+                    activate_parental_control(usuario)
+                elif escolha_controle == "2":
+                    time.sleep(2)
+                    limpar_tela()
+                    menu_config_usuario(usuario)
+                elif escolha_controle == "3":
+                    time.sleep(2)
+                    limpar_tela()
+                    menu_config_usuario(usuario)
+
+            elif escolha == "2":
+                print("Restrição de conteúdo ainda não implementada.\n")
+                time.sleep(2)
+                limpar_tela()
         elif opcao_usuario == "4":
             limpar_tela()
             break
@@ -178,7 +205,7 @@ def menu_principal_convidado():
     print("2. Voltar ao menu inicial")
     print("==============================================")
 
-    opcao = input("Escolha uma opção (1-9):\n ")
+    opcao = input("Escolha uma opção (1-2):\n ")
     if opcao == "1":
         limpar_tela()
         print("Consultando biblioteca de conteúdo...\n")
