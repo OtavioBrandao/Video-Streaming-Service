@@ -169,22 +169,26 @@ def menu_config_usuario(usuario):
 
                     while True:
                         limpar_tela()
-                        activate_parental_control(usuario)
+                        outro_perfil = activate_parental_control(usuario)
                         time.sleep(2)
+                        if outro_perfil:
+                            print("Deseja ativar o controle parental para outro perfil?" \
+                                "\n1. Sim\n2. Não")
+                            escolha_controle = input("Escolha uma opção (1-2):\n ")
 
-                        print("Deseja ativar o controle parental para outro perfil?" \
-                            "\n1. Sim\n2. Não")
-                        escolha_controle = input("Escolha uma opção (1-2):\n ")
-
-                        if escolha_controle == "1":
-                            limpar_tela()
-                            continue  # volta para o início do loop e ativa para outro perfil
-                        elif escolha_controle == "2":
-                            limpar_tela()
-                            break  # sai do loop e volta ao menu_config_usuario
+                            if escolha_controle == "1":
+                                limpar_tela()
+                                continue  # volta para o início do loop e ativa para outro perfil
+                            elif escolha_controle == "2":
+                                limpar_tela()
+                                break  # sai do loop e volta ao menu_config_usuario
+                            else:
+                                print("Opção inválida. Tente novamente.")
+                                time.sleep(2)
                         else:
-                            print("Opção inválida. Tente novamente.")
-                            time.sleep(2)
+                            
+                            limpar_tela()
+                            break
                 elif escolha == "2":
                     limpar_tela()
                     deactivate_parental_control(usuario)
@@ -332,7 +336,11 @@ def menu_principal(usuario=None):
             time.sleep(2)
             limpar_tela()
             menu_principal(usuario)
-
+    else:
+        print("Opção inválida. Tente novamente.")
+        time.sleep(2)
+        limpar_tela()
+        menu_principal(usuario)
 if __name__ == "__main__":
     inicializar()
     menu_inicial()

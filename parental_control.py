@@ -8,7 +8,7 @@ def activate_parental_control(usuario):
         booleano = usuario.listar_perfis()
 
         if not booleano:
-            return
+            return False
 
         print("Digite o nome do perfil para ativar o controle parental:")
         nome_perfil = input("Nome do perfil: ")
@@ -26,12 +26,10 @@ def activate_parental_control(usuario):
 
 def deactivate_parental_control(usuario):
     while True:
-        usuario.listar_perfis()
-
         booleano2 = usuario.listar_perfis()
 
         if not booleano2:
-            return
+            return False
 
         print("Digite o nome do perfil para desativar o controle parental:")
         nome_perfil = input("Nome do perfil: ")
