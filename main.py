@@ -1,8 +1,7 @@
-import os
-import sys
 import time
 from user_management import User
-from parental_control import activate_parental_control
+from parental_control import activate_parental_control, deactivate_parental_control
+from utility import limpar_tela
 
 # Video Streaming Service - Main Module
 
@@ -13,13 +12,6 @@ def inicializar():
     print("==========================")
     print("VIDEO STREAMING SERVICE")
     print("==========================")
-
-def limpar_tela():
-    # Limpa a tela do terminal
-    if sys.platform.startswith('win'):
-        os.system('cls')
-    else:
-        os.system('clear')
 
 def criar_conta():
     print("Digite o nome do usuário:")
@@ -43,10 +35,6 @@ def criar_conta():
     print("Confirme sua senha:")
     senha2 = input()
 
-    for usuario in usuarios_registrados:
-        if usuario.nome == nome:
-            print("Usuário já existe. Tente novamente.")
-            return criar_conta()
     # Verifica se as senhas coincidem
     if senha == senha2:
         novo_usuario = User(nome, email, senha) # Instancia de um novo usuário que será adicionado à lista
@@ -123,6 +111,7 @@ def menu_config_usuario(usuario):
         print("==========================================")
 
         opcao_usuario = input("Escolha uma opção (1-4):\n ")
+
         if opcao_usuario == "1":       
         #Aplicando o módulo de listar perfis feito no user_management 
             limpar_tela()
@@ -132,61 +121,88 @@ def menu_config_usuario(usuario):
                 print("2. Remover perfil")
                 print("3. Voltar ao menu de configurações")
                 escolha_perfil = input("Escolha uma opção (1-3):\n ")
+
                 if escolha_perfil == "1":
+                    limpar_tela()
                     nome_perfil = input("Digite o nome do novo perfil: ")
                     usuario.adicionar_perfil(nome_perfil)
                     time.sleep(2)
                     limpar_tela()
                 elif escolha_perfil == "2":
+                    limpar_tela()
+                    print("Perfis disponíveis para remoção:")
+                    usuario.listar_perfis()
                     nome_perfil = input("Digite o nome do perfil a ser removido: ")
                     usuario.remover_perfil(nome_perfil)
                     time.sleep(2)
                     limpar_tela()
                 elif escolha_perfil == "3":
                     limpar_tela()
-                    menu_config_usuario(usuario)
-                    break
+                    continue
                 else:
                     print("Opção inválida. Tente novamente.")
             else: 
+                limpar_tela()
                 menu_config_usuario(usuario)
         elif opcao_usuario == "2":
+            limpar_tela()
             usuario.gerenciar_plano()
             time.sleep(2)
             limpar_tela()
         elif opcao_usuario == "3":
-            limpar_tela()
-            print("Configurações de Controle Parental:\n")
-            print("==========================================")
-            print("Você pode ativar o controle parental para um perfil existente ou restringir conteúdo.")
-            print("1. Ativar controle parental")
-            print("2. Restrição de conteúdo")
-            print("3. Voltar ao menu de configurações")
-            print("==========================================")
-            escolha = input("Escolha uma opção (1-3):\n ")
-            if escolha == "1":
-                limpar_tela()
-                print("Selecione o perfil que deseja ativar o controle parental:")
-                activate_parental_control(usuario)
-                time.sleep(2)
-                print("Deseja ativar o controle parental para outro perfil?" \
-                "\n1. Sim\n2. Não")
-                escolha_controle = input("Escolha uma opção (1-2):\n ")
-                if escolha_controle == "1":
-                    activate_parental_control(usuario)
-                elif escolha_controle == "2":
-                    time.sleep(2)
-                    limpar_tela()
-                    menu_config_usuario(usuario)
-                elif escolha_controle == "3":
-                    time.sleep(2)
-                    limpar_tela()
-                    menu_config_usuario(usuario)
 
-            elif escolha == "2":
-                print("Restrição de conteúdo ainda não implementada.\n")
-                time.sleep(2)
-                limpar_tela()
+            limpar_tela()
+
+            while True:
+                print("Configurações de Controle Parental:\n")
+                print("==========================================")
+                print("Você pode ativar o controle parental para um perfil existente ou restringir conteúdo.")
+                print("1. Ativar controle parental")
+                print("2. Desativar controle parental")
+                print("3. Restrição de conteúdo")
+                print("4. Voltar ao menu de configurações")
+                print("==========================================")
+                escolha = input("Escolha uma opção (1-4):\n ")
+
+                if escolha == "1":
+                    limpar_tela()
+
+                    while True:
+                        limpar_tela()
+                        activate_parental_control(usuario)
+                        time.sleep(2)
+
+                        print("Deseja ativar o controle parental para outro perfil?" \
+                            "\n1. Sim\n2. Não")
+                        escolha_controle = input("Escolha uma opção (1-2):\n ")
+
+                        if escolha_controle == "1":
+                            limpar_tela()
+                            continue  # volta para o início do loop e ativa para outro perfil
+                        elif escolha_controle == "2":
+                            limpar_tela()
+                            break  # sai do loop e volta ao menu_config_usuario
+                        else:
+                            print("Opção inválida. Tente novamente.")
+                            time.sleep(2)
+                elif escolha == "2":
+                    limpar_tela()
+                    deactivate_parental_control(usuario)
+                    time.sleep(2)
+                    limpar_tela()
+                elif escolha == "3":
+                    limpar_tela()
+                    print("Restrição de conteúdo ainda não implementada.")
+                    time.sleep(2)
+                    limpar_tela()
+                elif escolha == "4":
+                    limpar_tela()
+                    break
+                else:
+                    print("Opção inválida. Tente novamente.")
+                    time.sleep(2)
+                    limpar_tela()
+
         elif opcao_usuario == "4":
             limpar_tela()
             break

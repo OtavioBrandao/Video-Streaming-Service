@@ -29,24 +29,21 @@ class User:
             if perfil.nome_perfil == nome:
                 self.perfis.remove(perfil)
                 print(f"Perfil '{nome}' removido com sucesso!")
+                return
             else: 
                 print(f"Perfil '{nome}' não encontrado.")
-        return
-    
-    def ativar_controle_parental(self, nome_perfil):
+
+    def obter_perfil_por_nome(self, nome_perfil):
         for perfil in self.perfis:
             if perfil.nome_perfil == nome_perfil:
-                perfil.controle_parental = True
-                break
-        else:
-            print(f"Perfil '{nome_perfil}' não encontrado.")
-    
+                return perfil
+        return None
+
     def listar_perfis(self):
         if not self.perfis:
             print("Nenhum perfil encontrado. Deseja adicionar um perfil?")
             print("1. Sim")
             print("2. Não")
-
             escolha = input()
             
             if escolha == "1":
@@ -102,18 +99,29 @@ class User:
         elif plano == "Premium":
             print("Seu plano atual é o Premium. Você tem acesso a todos os recursos.")
 
-
     def ativar_controle_parental(self, perfil):
         if perfil in self.perfis:
+
+            if perfil.controle_parental:
+                print(f"Controle parental já está ativado para o perfil: {perfil.nome_perfil}")
+                return
+            
             perfil.controle_parental = True
             print(f"Controle parental ativado para o perfil: {perfil.nome_perfil}")
+            return
         else:
             print("Perfil não encontrado.")
 
     def desativar_controle_parental(self, perfil):
         if perfil in self.perfis:
+
+            if not perfil.controle_parental:
+                print(f"Controle parental já está desativado para o perfil: {perfil.nome_perfil}")
+                return
+            
             perfil.controle_parental = False
             print(f"Controle parental desativado para o perfil: {perfil.nome_perfil}")
+            return
         else:
             print("Perfil não encontrado.")
 

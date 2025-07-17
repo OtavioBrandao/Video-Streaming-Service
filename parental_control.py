@@ -1,16 +1,50 @@
 # Parental Control Settings: Implementing parental controls for content filtering;
 from user_management import User
+from utility import limpar_tela
+import time
 
 def activate_parental_control(usuario):
     while True:
-        lista_perfis = usuario.listar_perfis()
+        booleano = usuario.listar_perfis()
+
+        if not booleano:
+            return
+
         print("Digite o nome do perfil para ativar o controle parental:")
         nome_perfil = input("Nome do perfil: ")
 
-        if nome_perfil in usuario.perfis:
-            usuario.ativar_controle_parental(nome_perfil)
-            print(f"Controle parental ativado para o perfil: {nome_perfil}\n")
+        perfil_encontrado = usuario.obter_perfil_por_nome(nome_perfil)
+
+        if perfil_encontrado:
+            usuario.ativar_controle_parental(perfil_encontrado)
             break
+        else:
+            print("Perfil não encontrado. Verifique a sua escrita.\n")
+            time.sleep(2)
+            limpar_tela()
+
+
+def deactivate_parental_control(usuario):
+    while True:
+        usuario.listar_perfis()
+
+        booleano2 = usuario.listar_perfis()
+
+        if not booleano2:
+            return
+
+        print("Digite o nome do perfil para desativar o controle parental:")
+        nome_perfil = input("Nome do perfil: ")
+
+        perfil_encontrado = usuario.obter_perfil_por_nome(nome_perfil)
+
+        if perfil_encontrado:
+            usuario.desativar_controle_parental(perfil_encontrado)
+            break
+        else:
+            print("Perfil não encontrado. Verifique a sua escrita.\n")
+            time.sleep(2)
+            limpar_tela()
 
 def restringir_conteudo(usuario):
     pass
