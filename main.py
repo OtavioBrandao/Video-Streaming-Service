@@ -2,6 +2,8 @@ import time
 from user_management import User
 from parental_control import activate_parental_control, deactivate_parental_control
 from utility import limpar_tela
+from recommendations import Categoria
+
 
 # Video Streaming Service - Main Module
 
@@ -111,7 +113,7 @@ def menu_config_usuario(usuario):
         print("==========================================")
 
         opcao_usuario = input("Escolha uma opção (1-4):\n ")
-
+        
         if opcao_usuario == "1":       
         #Aplicando o módulo de listar perfis feito no user_management 
             limpar_tela()
@@ -280,7 +282,14 @@ def menu_principal(usuario=None):
     elif opcao == "3":
         #implementar funcao recomendacoes_personalizadas()
         # cada profile vai ter suas proprias recomendacoes
-        print("Não implementado\n")
+        categorias = Categoria()
+        categorias.adicionar_conteudo("Ação")
+        categorias.adicionar_conteudo("Comédia")
+        categorias.adicionar_conteudo("Drama")
+        categorias.adicionar_conteudo("Terror")
+        categorias.adicionar_conteudo("Terror")
+        print("Recomendações personalizadas:\n")
+        categorias.recomendar_conteudo()
         time.sleep(2)
         limpar_tela()
         menu_principal(usuario)
@@ -341,6 +350,7 @@ def menu_principal(usuario=None):
         time.sleep(2)
         limpar_tela()
         menu_principal(usuario)
+
 if __name__ == "__main__":
     inicializar()
     menu_inicial()
