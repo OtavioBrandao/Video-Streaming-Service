@@ -1,19 +1,31 @@
-Para rodar o programa, basta executar o código main.py usando o comando python main.py.
+# 🎬 Video Streaming Service
 
-Funcionalidades do programa:
+## 🚀 Como Executar
 
-(As funcionalidades implementadas durante a aula serão marcadas com OK)
+Para rodar o programa, execute o arquivo principal com o comando:
 
-Consultar biblioteca de conteúdo
-Configurações de usuário OK
-Recomendações personalizadas
-Streaming em múltiplos dispositivos
-Otimização de banda larga
-Marcar conteúdo e histórico de visualização
-Revisões e avaliações de conteúdo
-Integração com anúncios
-Controle parental
-Gerenciamento de usuário OK
+```bash
+python main.py
+```
 
-Observações:
-No gerenciamento do usuário, a parte de controle parental não está funcionando devidamente ainda.
+---
+
+## ✨ Funcionalidades
+
+- 📚 Consultar biblioteca de conteúdo (90% feito)
+- 👤 Configurações de usuário&nbsp;✅
+- 🤖 Recomendações personalizadas
+- 📱 Streaming em múltiplos dispositivos
+- ⚡ Otimização de banda larga
+- ⭐ Marcar conteúdo e histórico de visualização
+- 📝 Revisões e avaliações de conteúdo
+- 📢 Integração com anúncios
+- 🔒 Controle parental&nbsp;✅
+- 👥 Gerenciamento de usuário&nbsp;✅
+
+---
+
+## 📝 Observações
+
+- 🔸 Falta implementar a restrição de conteúdo no controle parental.
+- 🔸 Falta Restringir conteúdo conforme o plano do usuário (Premium: sem restrições e sem anúncios).

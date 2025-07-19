@@ -3,7 +3,7 @@
 from numpy import append
 from recommendations import Recomendacoes
 import random
-
+from utility import limpar_tela
 
 
 class ConjuntoMidias:
@@ -46,7 +46,7 @@ class Midia:
         raise NotImplementedError("Este método deve ser implementado na subclasse.")
     
     def assistir(self):
-        # vai marcar a midia como assistida
+        print(f"Assistindo {self.titulo}...")
         pass
 
 # Subclasses para diferentes tipos de mídia 
@@ -266,6 +266,7 @@ def Explorar_Conteudo():
         escolha = input("Escolha uma opção: ")
 
         if escolha == "1":
+            limpar_tela()
             titulo = input("Digite o título do conteúdo: ")
             resultados = catalogo.buscar_por_titulo(titulo)
             if resultados:
@@ -276,6 +277,7 @@ def Explorar_Conteudo():
                 print("Nenhum conteúdo encontrado.")
 
         elif escolha == "2":
+            limpar_tela()
             genero = input("Digite o gênero do conteúdo: ")
             resultados = catalogo.buscar_por_genero(genero)
             if resultados:
@@ -286,6 +288,7 @@ def Explorar_Conteudo():
                 print("Nenhum conteúdo encontrado.")
 
         elif escolha == "3":
+            limpar_tela()
             catalogo.navegar()
 
         elif escolha == "4":

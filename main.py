@@ -273,6 +273,7 @@ def menu_principal(usuario=None):
         time.sleep(2)
         limpar_tela()
         Explorar_Conteudo()
+        menu_principal(usuario)
     elif opcao == "2":
         limpar_tela()
         menu_config_usuario(usuario)
