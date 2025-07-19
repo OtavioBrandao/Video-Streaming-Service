@@ -7,6 +7,8 @@
 # Gerenciar plano (gratuito/pago)
 # Adicionar e remover perfis (dentro da conta)
 # Ativar/desativar controle parental por perfil
+from recommendations import Recomendacoes
+from library_management import Historico
 
 class User:
     def __init__(self, nome, email, senha):
@@ -15,6 +17,7 @@ class User:
         self.senha = senha
         self.perfis = []
         self.plano = "Gratuito" # Plano default ao criar conta
+
     
     def adicionar_perfil(self, nome, controle_parental=False):
         if any(perfil.nome_perfil == nome for perfil in self.perfis):
@@ -129,6 +132,8 @@ class Perfil:
     def __init__(self, nome_perfil, controle_parental=False):
         self.nome_perfil = nome_perfil
         self.controle_parental = controle_parental
+        self.recomendacoes = Recomendacoes()
+        self.historico = Historico()
 
     def __str__(self):
         return f"Perfil: {self.nome_perfil}, Controle Parental: {'Ativado' if self.controle_parental else 'Desativado'}"

@@ -1,9 +1,10 @@
 import time
-from user_management import User
+from user_management import User, Perfil
 from parental_control import activate_parental_control, deactivate_parental_control
 from utility import limpar_tela
 from recommendations import Recomendacoes
-from library_management import Explorar_Conteudo
+from library_management import Explorar_Conteudo, Historico
+from bookmarking_and_history import ver_historico_de_exibicao, limpar_historico
  
 
 # Video Streaming Service - Main Module
@@ -101,6 +102,8 @@ def menu_inicial():
         exit()
     else:
         print("Opção inválida. Tente novamente.")
+        time.sleep(2)
+        limpar_tela()
         menu_inicial()
 
 def menu_config_usuario(usuario):
@@ -250,6 +253,8 @@ def menu_principal(usuario=None):
     if usuario is None:
         usuario = fazer_login(usuarios_registrados)
     limpar_tela()
+
+
     print(f"Bem-vindo ao Video Streaming Service, {usuario.nome}!\n"
           "O que você gostaria de fazer?\n"
           )
@@ -272,7 +277,7 @@ def menu_principal(usuario=None):
         print("Consultando biblioteca de conteúdo...\n")
         time.sleep(2)
         limpar_tela()
-        Explorar_Conteudo()
+        Explorar_Conteudo(usuario)
         menu_principal(usuario)
     elif opcao == "2":
         limpar_tela()
@@ -280,16 +285,16 @@ def menu_principal(usuario=None):
         menu_principal(usuario)
 
     elif opcao == "3":
-        #implementar funcao recomendacoes_personalizadas()
-        # cada profile vai ter suas proprias recomendacoes
-        categorias = Recomendacoes()
-        categorias.adicionar_conteudo("Ação")
-        categorias.adicionar_conteudo("Comédia")
-        categorias.adicionar_conteudo("Drama")
-        categorias.adicionar_conteudo("Terror")
-        categorias.adicionar_conteudo("Terror")
-        print("Recomendações personalizadas:\n")
-        categorias.recomendar_conteudo()
+        print("Selecione o perfil para visualizar recomendações personalizadas:\n")
+        usuario.listar_perfis()
+        nome_perfil = input("Digite o nome do perfil: ")
+        perfil = usuario.obter_perfil_por_nome(nome_perfil)
+
+        if perfil:
+            perfil.recomendacoes.recomendar_conteudo()
+        else:
+            print("Perfil não encontrado.")
+
         time.sleep(2)
         limpar_tela()
         menu_principal(usuario)
@@ -306,8 +311,52 @@ def menu_principal(usuario=None):
         limpar_tela()
         menu_principal(usuario)
     elif opcao == "6":
-        #implementar funcao marcar_conteudo()
-        print("Não implementado\n")
+        limpar_tela()
+        while True:
+            print("Marcação de conteúdo e histórico de visualização:\n")
+            print("==========================================")
+            print("1. Ver histórico de exibição\n")
+            print("2. Limpar histórico de exibição\n")
+            print("3. Marcar conteúdo\n")
+            print("4. Voltar ao menu principal")
+            print("==========================================")
+            opcao_historico = input("Escolha uma opção (1-4):\n ")
+            if opcao_historico == "1":
+                limpar_tela()
+                print("Selecione o perfil para acessar o histórico:\n")
+                usuario.listar_perfis()
+                nome_perfil = input("Digite o nome do perfil: ")
+                perfil = usuario.obter_perfil_por_nome(nome_perfil)
+
+                if perfil:
+                    ver_historico_de_exibicao(perfil.historico)
+                    input("Pressione Enter para voltar...")
+                else:
+                    print("Perfil não encontrado.")
+                limpar_tela()
+                continue 
+        
+            elif opcao_historico == "2":
+                print("Selecione o perfil para acessar o histórico:\n")
+                usuario.listar_perfis()
+                nome_perfil = input("Digite o nome do perfil: ")
+                perfil = usuario.obter_perfil_por_nome(nome_perfil)
+
+                if perfil:
+                    limpar_historico(perfil.historico)
+                    print("Histórico de exibição limpo com sucesso!\n")
+                    input("Pressione Enter para continuar...")
+                else:
+                    print("Perfil não encontrado.")
+                limpar_tela()
+                continue
+            elif opcao_historico == "3":
+                print("Marcação de conteúdo ainda não implementada.\n")
+                input("Pressione Enter para continuar...")
+                limpar_tela()
+            elif opcao_historico == "4":
+                break   
+
         time.sleep(2)
         limpar_tela()
         menu_principal(usuario)

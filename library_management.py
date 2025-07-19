@@ -1,16 +1,15 @@
 # Content Library Management: Managing a library of streaming content, including movies and TV shows
 
 from numpy import append
-from recommendations import Recomendacoes
 import random
 from utility import limpar_tela
-
+import time
 
 class ConjuntoMidias:
     # Referente a varias midias
     def __init__(self):
         self.midias= []
-
+    
     def buscar_por_titulo(self, titulo):
         resultados = []
         for midia in self.midias:
@@ -32,8 +31,6 @@ class ConjuntoMidias:
             midia.exibir_informacoes()
             print()
 
-
-
 class Midia:
     # Referente a uma midia especifica
     def __init__(self, titulo, genero, classificacao, tempo_duracao):
@@ -46,10 +43,18 @@ class Midia:
         raise NotImplementedError("Este método deve ser implementado na subclasse.")
     
     def assistir(self):
+        limpar_tela()
         print(f"Assistindo {self.titulo}...")
-        pass
+        print()
+        print()
+        print("Pressione Enter para parar de assistir.")
+        input()
+        print(f"Você parou de assistir {self.titulo}.")
+        print("Obrigado por assistir!")
+        time.sleep(2)
+        limpar_tela()
 
-# Subclasses para diferentes tipos de mídia 
+# Subclasses para diferentes tipos de mídia
 # Conceitos de Herança e Polimorfismo aqui
     
 class Filme(Midia):
@@ -120,6 +125,25 @@ class Anime(Midia):
         print(f"║ Temporadas: {self.temporadas:<38}║")
         print("╚" + "═" * 50 + "╝")
 
+class Historico(Midia):
+    def __init__(self):
+        self.historico = []
+
+    def adicionar_no_historico(self, midia):
+        self.historico.append(midia)
+
+    def exibir_historico(self):
+        if self.historico == []:
+            print("Seu histórico está vazio. Assista algum conteúdo primeiro.")
+        else:
+            print("Recém-reproduzidos:")
+
+            for midia in self.historico:
+                midia.exibir_informacoes()
+                
+    def limpar_historico(self):
+        self.historico.clear()
+        print("Seu histórico foi limpo com sucesso.")
 
 def todas_as_midias():
     midias = []
@@ -249,9 +273,19 @@ def todas_as_midias():
     return midias
 
 
-def Explorar_Conteudo():
+def Explorar_Conteudo(usuario):
+    print("Quem está assistindo?")
+    continuar = usuario.listar_perfis()
+    if not continuar:
+        return
+    nome_perfil = input("Digite o nome do perfil: ")
+    perfil = usuario.obter_perfil_por_nome(nome_perfil)
+    if perfil is None:
+        print(f"Perfil '{nome_perfil}' não encontrado. Por favor, tente novamente.")
+        return
+    print(f"Bem-vindo(a), {perfil.nome_perfil}!\n")
     catalogo = ConjuntoMidias()
-
+   
     for midia in todas_as_midias():
         catalogo.midias.append(midia)
 
@@ -261,7 +295,8 @@ def Explorar_Conteudo():
         print("1. Buscar por Título")
         print("2. Buscar por Gênero")
         print("3. Navegar pela Biblioteca")
-        print("4. Sair")
+        print("4. Assistir Conteúdo")
+        print("5. Sair")
         print("==========================")
         escolha = input("Escolha uma opção: ")
 
@@ -290,8 +325,36 @@ def Explorar_Conteudo():
         elif escolha == "3":
             limpar_tela()
             catalogo.navegar()
-
         elif escolha == "4":
+            titulo = input("Digite o título do conteúdo que deseja assistir: ")
+            resultados = catalogo.buscar_por_titulo(titulo)
+
+            if not resultados:
+                print("Conteúdo não encontrado.")
+                return
+
+            print("\nConteúdos encontrados:\n")
+            for idx, midia in enumerate(resultados):
+                print(f"[{idx + 1}]")
+                midia.exibir_informacoes()
+                print()
+
+            escolha_conteudo = input("Digite o número do conteúdo que deseja assistir: ")
+
+            if escolha_conteudo.isdigit():
+                indice = int(escolha_conteudo) - 1
+                if 0 <= indice < len(resultados):
+                    conteudo_escolhido = resultados[indice]
+                    conteudo_escolhido.assistir()
+                    perfil.historico.adicionar_no_historico(conteudo_escolhido)
+                    perfil.recomendacoes.adicionar_conteudo(conteudo_escolhido.genero)
+                else:
+                    print("Opção inválida.")
+            else:
+                print("Entrada inválida.")
+
+
+        elif escolha == "5":
             print("Saindo da biblioteca...")
             break
 

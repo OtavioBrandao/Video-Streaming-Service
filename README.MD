@@ -12,12 +12,12 @@ python main.py
 
 ## ✨ Funcionalidades
 
-- 📚 Consultar biblioteca de conteúdo (90% feito)
+- 📚 Consultar biblioteca de conteúdo&nbsp;✅
 - 👤 Configurações de usuário&nbsp;✅
 - 🤖 Recomendações personalizadas
 - 📱 Streaming em múltiplos dispositivos
 - ⚡ Otimização de banda larga
-- ⭐ Marcar conteúdo e histórico de visualização
+- ⭐ Marcar conteúdo e histórico de visualização (50% feito)
 - 📝 Revisões e avaliações de conteúdo
 - 📢 Integração com anúncios
 - 🔒 Controle parental&nbsp;✅
