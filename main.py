@@ -2,8 +2,9 @@ import time
 from user_management import User
 from parental_control import activate_parental_control, deactivate_parental_control
 from utility import limpar_tela
-from recommendations import Categoria
-
+from recommendations import Recomendacoes
+from library_management import Explorar_Conteudo
+ 
 
 # Video Streaming Service - Main Module
 
@@ -271,9 +272,7 @@ def menu_principal(usuario=None):
         print("Consultando biblioteca de conteúdo...\n")
         time.sleep(2)
         limpar_tela()
-        menu_principal(usuario)
-        #implementar funcao consultar_biblioteca()
-        # vai perguntar quem esta assistindo pelos profiles que cada user vai ter 
+        Explorar_Conteudo()
     elif opcao == "2":
         limpar_tela()
         menu_config_usuario(usuario)
@@ -282,7 +281,7 @@ def menu_principal(usuario=None):
     elif opcao == "3":
         #implementar funcao recomendacoes_personalizadas()
         # cada profile vai ter suas proprias recomendacoes
-        categorias = Categoria()
+        categorias = Recomendacoes()
         categorias.adicionar_conteudo("Ação")
         categorias.adicionar_conteudo("Comédia")
         categorias.adicionar_conteudo("Drama")

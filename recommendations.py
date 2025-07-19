@@ -1,5 +1,5 @@
 # Personalized Recommendations: Offering personalized content recommendations based on user preferences
-class Categoria:
+class Recomendacoes:
     def __init__(self):
         #self.nome = nome (ver o que fazer com isso, se for usar o nome do filme aq)
         self.conteudos = []
