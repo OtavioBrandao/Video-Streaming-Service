@@ -285,6 +285,7 @@ def menu_principal(usuario=None):
         menu_principal(usuario)
 
     elif opcao == "3":
+        limpar_tela()
         print("Selecione o perfil para visualizar recomendações personalizadas:\n")
         usuario.listar_perfis()
         nome_perfil = input("Digite o nome do perfil: ")

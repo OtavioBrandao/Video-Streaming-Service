@@ -132,6 +132,7 @@ class Perfil:
     def __init__(self, nome_perfil, controle_parental=False):
         self.nome_perfil = nome_perfil
         self.controle_parental = controle_parental
+        # Para cada perfil ter seu próprio histórico e recomendações
         self.recomendacoes = Recomendacoes()
         self.historico = Historico()
 
