@@ -19,7 +19,7 @@ python main.py
 - 📱 **Streaming em múltiplos dispositivos** (Ainda não implementado)
 - ⚡ **Otimização de banda larga** (Ainda não implementado)
 - ⭐ **Marcar conteúdo e histórico de visualização** (Falta a parte de marcar conteúdo)
-- 📝 **Revisões e avaliações de conteúdo**
+- 📝 **Revisões e avaliações de conteúdo** (Ainda não implementado)
 - 📢 **Integração com anúncios** (Ainda não implementado)
 - 🔒 **Controle parental** ✅ (Só é possível ativar/desativar ainda, mas falta a parte de restringir por idade)
 - 👥 **Gerenciamento de usuário** ✅
